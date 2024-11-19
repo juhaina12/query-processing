@@ -1,0 +1,21 @@
+import pandas as pd
+import numpy as np
+
+data = {
+    'A': np.random.randn(10),
+    'B': np.random.randn(10),
+    'C': np.random.randn(10),
+    'D': np.random.randn(10)
+}
+
+df = pd.DataFrame(data)
+
+nan_indices = [(1, 'A'), (3, 'B'), (5, 'C'), (7, 'D'), (9, 'A')]  # Example indices
+for idx, col in nan_indices:
+    df.at[idx, col] = np.nan
+
+def highlight_nan(val):
+    color = 'yellow' if pd.isna(val) else ''
+    return f'background-color: {color}'
+styled_df = df.style.applymap(highlight_nan)
+styled_df
